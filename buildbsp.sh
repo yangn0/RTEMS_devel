@@ -1,10 +1,10 @@
 #!/bin/bash
-export rtems_version=6
-export PATH=$HOME/RTEMS_devel/rtems/$rtems_version/bin:$PATH
+rtems_version=6
 
-export arch=aarch64
-# export bsp=xilinx_versal_qemu
-export bsp=raspberrypi4b
+export PATH=$HOME/RTEMS_devel/rtems/$rtems_version/bin:$PATH
+rtems_src_path=$HOME/RTEMS_devel/src/rtems
+rtems_prefix=$HOME/RTEMS_devel/rtems/$rtems_version
+rtems_config_path=$HOME/RTEMS_devel/config.ini
 
 # cd ~/RTEMS_devel/src/rtems/bsps/aarch64/raspberrypi/fdt
 # dtc -I dts -O dtb ./bcm2711-rpi-4-b.dts -o bcm2711-rpi-4-b.dtb
@@ -12,12 +12,16 @@ export bsp=raspberrypi4b
 # rm rpi4b_dtb.h
 # rm bcm2711-rpi-4-b.dtb
 
-cd ~/RTEMS_devel/src/rtems
+cd $rtems_src_path
 # ./waf uninstall
 ./waf distclean
-./waf configure --prefix=$HOME/RTEMS_devel/rtems/$rtems_version --rtems-config=$HOME/RTEMS_devel/config.ini
+./waf configure --prefix=$rtems_prefix --rtems-config=$rtems_config_path
 ./waf
 ./waf install
+
+arch=aarch64
+# export bsp=xilinx_versal_qemu
+bsp=raspberrypi4b
 
 cd ~/RTEMS_devel
 app=~/RTEMS_devel/src/rtems/build/$arch/$bsp/testsuites/samples/hello.exe
