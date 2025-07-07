@@ -5,10 +5,10 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "(gdb) 启动",
+            "name": "strongswan",
             "type": "cppdbg",
             "request": "launch",
-            "program": "/home/yangn0/RTEMS_devel/src/rtems-libbsd/build/arm-rtems6-xilinx_zynq_a9_qemu-everything/ipsec01.exe",
+            "program": "/home/yangn0/RTEMS_devel/src/rtems-strongswan/test2/dave.exe",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
@@ -16,7 +16,7 @@
             "miDebuggerServerAddress": "127.0.0.1:1234",
             "externalConsole": false,
             "MIMode": "gdb",
-            "miDebuggerPath": "/home/yangn0/RTEMS_devel/rtems/6/bin/arm-rtems6-gdb",
+            "miDebuggerPath": "/home/yangn0/RTEMS_devel/rtems/6/bin/aarch64-rtems6-gdb",
             "setupCommands": [
                 {
                     "description": "为 gdb 启用整齐打印",
@@ -26,18 +26,18 @@
             ]
         },
         {
-            "name": "树莓派 3333",
+            "name": "test",
             "type": "cppdbg",
             "request": "launch",
-            "program": "/home/yangn0/devel/rtems-aarch64/app/hello/build/aarch64-rtems6-raspberrypi4b/hello.exe",
+            "program": "/home/yangn0/RTEMS_devel/src/rtems-iperf/build/aarch64-rtems7-zynqmp_qemu/test.exe",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],
-            "miDebuggerServerAddress": "10.8.0.2:3333",
+            "miDebuggerServerAddress": "127.0.0.1:1234",
             "externalConsole": false,
             "MIMode": "gdb",
-            "miDebuggerPath": "/home/yangn0/devel/rtems-aarch64/rtems/6/bin/aarch64-rtems6-gdb",
+            "miDebuggerPath": "/home/yangn0/RTEMS_devel/rtems/7/bin/aarch64-rtems7-gdb",
             "setupCommands": [
                 {
                     "description": "为 gdb 启用整齐打印",
