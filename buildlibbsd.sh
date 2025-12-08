@@ -59,12 +59,20 @@ cp kernel8.img /mnt/c/Users/79230/Desktop/tftp/
 fi
 
 if [ "$bsp" = zynqmp_qemu -a $qemu_test == 1 ]; then
-# sudo ip tuntap add qtap mode tap user $(whoami)
-# sudo ip link set dev qtap up
-# sudo ip addr add 169.254.1.1/16 dev qtap
-qemu-system-aarch64  -no-reboot -nographic  \
-    -serial mon:stdio -machine xlnx-zcu102 -m 4096 \
-    -net nic,model=cadence_gem \
-    -net tap,ifname=qtap,script=no,downscript=no \
-    -kernel build/aarch64-rtems$rtems_version-zynqmp_qemu-$buildset/$test_name.exe
+
+  if [ "$(uname)"=="Darwin" ]; then
+    qemu-system-aarch64 -no-reboot -nographic \
+      -serial mon:stdio -machine xlnx-zcu102 -m 4096 \
+      -kernel build/aarch64-rtems$rtems_version-zynqmp_qemu-$buildset/$test_name.exe
+
+  elif [ "$(expr substr $(uname -s) 1 5)"=="Linux" ]; then
+    # sudo ip tuntap add qtap mode tap user $(whoami)
+    # sudo ip link set dev qtap up
+    # sudo ip addr add 169.254.1.1/16 dev qtap
+    qemu-system-aarch64  -no-reboot -nographic  \
+        -serial mon:stdio -machine xlnx-zcu102 -m 4096 \
+        -net nic,model=cadence_gem \
+        -net tap,ifname=qtap,script=no,downscript=no \
+        -kernel build/aarch64-rtems$rtems_version-zynqmp_qemu-$buildset/$test_name.exe
+  fi
 fi

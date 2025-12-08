@@ -26,6 +26,27 @@
             ]
         },
         {
+            "name": "strongswan-mac",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "/Users/yangn0/RTEMS_devel/src/rtems-strongswan/build/aarch64-rtems6-zynqmp_qemu/rtems_charon.exe",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "miDebuggerServerAddress": "127.0.0.1:1234",
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "miDebuggerPath": "/Users/yangn0/RTEMS_devel/rtems/6/bin/aarch64-rtems6-gdb",
+            "setupCommands": [
+                {
+                    "description": "为 gdb 启用整齐打印",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
             "name": "test",
             "type": "cppdbg",
             "request": "launch",
