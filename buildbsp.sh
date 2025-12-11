@@ -13,22 +13,23 @@ rtems_config_path=$HOME/RTEMS_devel/config.ini
 # rm bcm2711-rpi-4-b.dtb
 
 cd $rtems_src_path
-# ./waf uninstall
+./waf uninstall
 ./waf distclean
 ./waf configure --prefix=$rtems_prefix --rtems-config=$rtems_config_path
 ./waf
 ./waf install
 
 arch=aarch64
-# export bsp=xilinx_versal_qemu
+# bsp=xilinx_versal_qemu
 bsp=raspberrypi4b
+# bsp=a72_lp64_qemu
 
 cd ~/RTEMS_devel
 app=~/RTEMS_devel/src/rtems/build/$arch/$bsp/testsuites/samples/hello.exe
 # app=~/RTEMS_devel/src/rtems/build/$arch/$bsp/testsuites/sptests/spconsole01.exe
 # cp $app /mnt/c/Users/79230/Desktop/test.exe
 
-# $arch-rtems6-objcopy -O binary $app kernel8.img
+# $arch-rtems$rtems_version-objcopy -O binary $app kernel8.img
 # cp kernel8.img /mnt/c/Users/79230/Desktop/tftp/
 
 # qemu-system-aarch64 -no-reboot -nographic -serial mon:stdio -machine virt,gic-version=3 -cpu cortex-a72 -m 4096 -d trace:pl011_baudrate_change -kernel $app

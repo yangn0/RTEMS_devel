@@ -8,7 +8,7 @@
             "name": "strongswan",
             "type": "cppdbg",
             "request": "launch",
-            "program": "/home/yangn0/RTEMS_devel/src/rtems-strongswan/test2/dave.exe",
+            "program": "/home/yangn0/RTEMS_devel/src/rtems-strongswan/gen/carol.exe",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
@@ -16,7 +16,8 @@
             "miDebuggerServerAddress": "127.0.0.1:1234",
             "externalConsole": false,
             "MIMode": "gdb",
-            "miDebuggerPath": "/home/yangn0/RTEMS_devel/rtems/6/bin/aarch64-rtems6-gdb",
+            // "miDebuggerPath": "/home/yangn0/RTEMS_devel/rtems/7/bin/aarch64-rtems7-gdb",
+            "miDebuggerPath": "gdb-multiarch",
             "setupCommands": [
                 {
                     "description": "为 gdb 启用整齐打印",

@@ -15,11 +15,11 @@ bsp=zynqmp_qemu
 
 buildset=everything
 # test_name=media01
-# test_name=ipsec01
+test_name=ipsec01
 # test_name=crypto01
 # test_name=unix01
 # test_name=syscalls01
-test_name=ttcpshell01
+# test_name=ttcpshell01
 
 cd $rtems_libbsd_path
 # ./waf uninstall
@@ -27,7 +27,7 @@ cd $rtems_libbsd_path
 ./waf configure --prefix=$rtems_prefix \
       --rtems-bsps=$arch/$bsp \
       --buildset=buildset/$buildset.ini \
-      # --optimization 1
+      --optimization 0
       # --enable-auto-regen
 ./waf
 ./waf install
@@ -41,19 +41,20 @@ qemu-system-arm  -S -s -serial null -serial mon:stdio -nographic \
   -M xilinx-zynq-a9 -m 256M \
   -net nic,model=cadence_gem \
   -net tap,ifname=qtap,script=no,downscript=no \
-  -kernel build/$arm-rtems6-xilinx_zynq_a9_qemu-$buildset/$test_name.exe
+  -kernel build/arm-rtems$rtems_version-xilinx_zynq_a9_qemu-$buildset/$test_name.exe
 fi
 
 if [ "$bsp" = raspberrypi4b -a $qemu_test == 1 ]; then
 cd ~/RTEMS_devel
-# $arch-rtems6-objcopy -O binary $HOME/RTEMS_devel/src/rtems-libbsd/build/aarch64-rtems6-raspberrypi4b-$buildset/media01.exe kernel8.img
-# $arch-rtems6-objcopy -O binary $HOME/RTEMS_devel/src/rtems-libbsd/build/aarch64-rtems6-raspberrypi4b-$buildset/telnetd01.exe kernel8.img
-$arch-rtems6-objcopy -O binary $HOME/RTEMS_devel/src/rtems-libbsd/build/aarch64-rtems6-raspberrypi4b-$buildset/ftpd01.exe kernel8.img
-# $arch-rtems6-objcopy -O binary $HOME/RTEMS_devel/src/rtems-libbsd/build/aarch64-rtems6-raspberrypi4b-$buildset/netshell01.exe kernel8.img
-# $arch-rtems6-objcopy -O binary $HOME/RTEMS_devel/src/rtems-libbsd/build/aarch64-rtems6-raspberrypi4b-$buildset/ping01.exe kernel8.img
-# $arch-rtems6-objcopy -O binary $HOME/RTEMS_devel/src/rtems-libbsd/build/aarch64-rtems6-raspberrypi4b-$buildset/init01.exe kernel8.img
-# $arch-rtems6-objcopy -O binary $HOME/RTEMS_devel/src/rtems-libbsd/build/aarch64-rtems6-raspberrypi4b-$buildset/ipsec01.exe kernel8.img
-# $arch-rtems6-objcopy -O binary $HOME/RTEMS_devel/rtems/6/bin/ttcpshell01.exe kernel8.img
+# app=$HOME/RTEMS_devel/src/rtems-libbsd/build/aarch64-rtems$rtems_version-raspberrypi4b-$buildset/ftpd01.exe
+app=$HOME/RTEMS_devel/src/rtems-libbsd/build/aarch64-rtems$rtems_version-raspberrypi4b-$buildset/ttcpshell01.exe
+# $arch-rtems$rtems_version-objcopy -O binary $HOME/RTEMS_devel/src/rtems-libbsd/build/aarch64-rtems$rtems_version-raspberrypi4b-$buildset/media01.exe kernel8.img
+# $arch-rtems$rtems_version-objcopy -O binary $HOME/RTEMS_devel/src/rtems-libbsd/build/aarch64-rtems$rtems_version-raspberrypi4b-$buildset/telnetd01.exe kernel8.img
+$arch-rtems$rtems_version-objcopy -O binary $app kernel8.img
+# $arch-rtems$rtems_version-objcopy -O binary $HOME/RTEMS_devel/src/rtems-libbsd/build/aarch64-rtems$rtems_version-raspberrypi4b-$buildset/netshell01.exe kernel8.img
+# $arch-rtems$rtems_version-objcopy -O binary $HOME/RTEMS_devel/src/rtems-libbsd/build/aarch64-rtems$rtems_version-raspberrypi4b-$buildset/ping01.exe kernel8.img
+# $arch-rtems$rtems_version-objcopy -O binary $HOME/RTEMS_devel/src/rtems-libbsd/build/aarch64-rtems$rtems_version-raspberrypi4b-$buildset/init01.exe kernel8.img
+# $arch-rtems$rtems_version-objcopy -O binary $HOME/RTEMS_devel/src/rtems-libbsd/build/aarch64-rtems$rtems_version-raspberrypi4b-$buildset/ipsec01.exe kernel8.img
 cp kernel8.img /mnt/c/Users/79230/Desktop/tftp/
 # qemu-system-aarch64 -M raspi4b -serial mon:stdio -nographic -kernel /mnt/c/Users/79230/Desktop/tftp/kernel8.img
 fi
